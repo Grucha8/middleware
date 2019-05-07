@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "currencyMarket.generated";
+option java_outer_classname = "CurrencyMarketProto";
+option objc_class_prefix = "HLW";
+
+enum Currency {
+    USD = 0;
+    EUR = 1;
+    GBP = 2;
+    CHF = 3;
+}
+
+message WhichCurrencies {
+    repeated Currency currency = 1;
+}
+
+message CurrencyAndRate {
+    Currency currency = 1;
+    double rate = 2;
+}
+
+message CurrencyRatesResponse {
+    repeated CurrencyAndRate currencyAndRate = 1;
+}
+
+service CurrencyRates {
+    rpc InitCurrencyRates(WhichCurrencies) returns (CurrencyRatesResponse) {}
+    rpc StreamCurrencyRates(WhichCurrencies) returns (stream CurrencyRatesResponse) {}
+}
